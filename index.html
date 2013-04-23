@@ -10,10 +10,8 @@
     // Called when capture operation is finished
     //
     function captureSuccess(mediaFiles) {
-        var i, len;
-        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-            uploadFile(mediaFiles[i]);
-        }       
+      var image = document.getElementById('myImage');
+      image.src = "data:image/jpeg;base64," + imageData;
     }
 
     // Called if something bad happens.
@@ -25,33 +23,14 @@
 
     // A button will call this function
     //
-    function captureAudio() {
-        // Launch device audio recording application, 
-        // allowing user to capture up to 2 audio clips
-        navigator.device.capture.captureAudio(captureSuccess, captureError, {limit: 2});
+    function captureCamera(){
+      navigator.camera.getPicture( captureSuccess, captureError );
     }
-
-    // Upload files to server
-    function uploadFile(mediaFile) {
-        var ft = new FileTransfer(),
-            path = mediaFile.fullPath,
-            name = mediaFile.name;
-
-        ft.upload(path,
-            "http://my.domain.com/upload.php",
-            function(result) {
-                console.log('Upload success: ' + result.responseCode);
-                console.log(result.bytesSent + ' bytes sent');
-            },
-            function(error) {
-                console.log('Error uploading file ' + path + ': ' + error.code);
-            },
-            { fileName: name });   
-    }
-
+ 
     </script>
     </head>
     <body>
-        <button onclick="captureAudio();">Capture Audio</button> <br>
+        <button onclick="captureCamera();">Capture Camera</button> <br>
+        <img id="MyImage" alt="My Image">
     </body>
 </html>
