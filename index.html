@@ -24,7 +24,9 @@
     // A button will call this function
     //
     function captureCamera(){
-      navigator.camera.getPicture( captureSuccess, captureError );
+      navigator.camera.getPicture( captureSuccess, captureError,{ quality: 50,
+    destinationType: Camera.DestinationType.DATA_URL
+ } );
     }
  
     </script>
